@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中彩网 · 简明导航</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fff1e0 0%, #fce4d6 45%, #fbdac8 100%);
+            min-height: 100vh;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page {
+            max-width: 1100px;
+            width: 100%;
+        }
+
+        /* 顶部导航 —— 极简、留白 */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 1.2rem;
+            background: rgba(255, 249, 244, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 6px 18px rgba(200, 120, 70, 0.08);
+        }
+
+        .top-nav .brand {
+            font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            color: #7a4f36;
+        }
+
+        .top-nav .brand span {
+            background: #dba885;
+            color: #3f2a1c;
+            padding: 0.1rem 0.6rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #5f3e2b;
+            font-size: 0.92rem;
+            font-weight: 450;
+            padding: 0.2rem 0.4rem;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: #eccaba;
+            color: #341f13;
+        }
+
+        /* 主要白色卡片容器 */
+        .card-white {
+            background: #fffffffa;
+            backdrop-filter: blur(2px);
+            border-radius: 36px;
+            padding: 2.4rem 2.6rem;
+            box-shadow: 0 20px 40px -12px rgba(140, 80, 40, 0.18);
+            margin-bottom: 2.2rem;
+            transition: box-shadow 0.25s;
+        }
+
+        .card-white:hover {
+            box-shadow: 0 24px 44px -12px rgba(125, 75, 35, 0.22);
+        }
+
+        /* hero 区 */
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.8rem;
+        }
+
+        .hero-text {
+            flex: 1 1 300px;
+        }
+
+        .hero-text h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #3d281c;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero-text h1 i {
+            font-style: normal;
+            background: linear-gradient(130deg, #b47148, #8e5b38);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .subhead {
+            font-size: 1rem;
+            color: #674b36;
+            max-width: 480px;
+            margin: 0.75rem 0 1.3rem 0;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            background: #d39568;
+            color: #2d1b0f;
+            padding: 0.7rem 2rem;
+            border-radius: 60px;
+            font-weight: 550;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: 0.2s ease;
+            border: none;
+            box-shadow: 0 4px 8px rgba(190, 120, 65, 0.15);
+        }
+
+        .hero-cta:hover {
+            background: #c58358;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(165, 100, 50, 0.2);
+        }
+
+        .hero-note {
+            flex: 0 1 220px;
+            background: #f9ede4;
+            border-radius: 48px;
+            padding: 1.2rem 1.5rem;
+            font-size: 0.9rem;
+            color: #4d3322;
+            border-left: 4px solid #d6a27c;
+        }
+
+        .hero-note strong {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: #2b1b0f;
+        }
+
+        /* 三个场景模块 (横向) */
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 1.8rem 0 0.5rem 0;
+        }
+
+        .scene-item {
+            background: #fffbf6;
+            border-radius: 28px;
+            padding: 1.6rem 1.3rem 1.3rem 1.3rem;
+            border: 1px solid #f2ddd0;
+            transition: transform 0.15s, border-color 0.15s;
+        }
+
+        .scene-item:hover {
+            transform: translateY(-3px);
+            border-color: #dbb28f;
+        }
+
+        .scene-item .emoji-badge {
+            background: #edd7c7;
+            width: 44px;
+            height: 44px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .scene-item h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #3d2618;
+            margin-bottom: 0.4rem;
+        }
+
+        .scene-item p {
+            font-size: 0.92rem;
+            color: #5a4030;
+            line-height: 1.6;
+        }
+
+        /* 常见说明 / 简明指南 */
+        .faq-compact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem 2.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .faq-block {
+            flex: 1 1 200px;
+        }
+
+        .faq-block h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #3b2519;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-block h4::before {
+            content: "▹";
+            color: #b8794f;
+            font-size: 1.2rem;
+        }
+
+        .faq-block p {
+            font-size: 0.92rem;
+            color: #4f3828;
+            line-height: 1.55;
+        }
+
+        .faq-block p a {
+            color: #8f5f38;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            font-weight: 500;
+            text-decoration-color: #dbb38c;
+        }
+
+        .faq-block p a:hover {
+            color: #532f18;
+            text-decoration-color: #a56a3a;
+        }
+
+        .guide-tip {
+            background: #fbf1e9;
+            border-radius: 48px;
+            padding: 0.9rem 1.5rem;
+            display: inline-block;
+            margin-top: 1.2rem;
+            font-size: 0.9rem;
+            color: #3c281d;
+            border: 1px solid #ebd5c3;
+        }
+
+        .guide-tip span {
+            font-weight: 600;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: #7c654f;
+            font-size: 0.85rem;
+            padding: 0.8rem 0;
+            border-top: 1px solid #e9d6c7;
+            margin-top: 1.6rem;
+            opacity: 0.8;
+        }
+
+        /* 响应式 */
+        @media (max-width: 750px) {
+            .card-white {
+                padding: 1.6rem 1.4rem;
+            }
+            .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            .scene-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .top-nav {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.9rem 1.2rem;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .hero-note {
+                flex: 1 1 auto;
+            }
+            .faq-compact {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            body {
+                padding: 0.8rem;
+            }
+            .card-white {
+                border-radius: 24px;
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <!-- 顶部导航 -->
+        <nav class="top-nav">
+            <div class="brand">中彩网<span>指南</span></div>
+            <ul class="nav-links">
+                <li><a href="#scenes">场景</a></li>
+                <li><a href="#guide">简明说明</a></li>
+                <li><a href="#faq">常见问题</a></li>
+            </ul>
+        </nav>
+
+        <!-- 核心介绍卡片 (hero) -->
+        <div class="card-white">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>简明导航 · <i>中彩网</i></h1>
+                    <p class="subhead">
+                        围绕信息获取与内容索引，提供轻量级指引。<br>
+                        本页从访问提醒、场景梳理、常见说明三个角度切入，帮你更高效地了解相关资源。
+                    </p>
+                    <a class="hero-cta" href="https://vip-zhcw.com">中彩网</a>
+                </div>
+                <div class="hero-note">
+                    <strong>访问提醒</strong>
+                    请确认来源与域名环境，保持理性判断。<br>
+                    建议通过官方或可靠途径浏览内容。
+                </div>
+            </div>
+        </div>
+
+        <!-- 三个场景模块 -->
+        <div class="card-white" id="scenes">
+            <h2 style="font-weight: 600; font-size: 1.4rem; color: #3d2618; margin-bottom: 0.2rem;">常见使用场景</h2>
+            <p style="color: #6b4f3b; margin-bottom: 0.2rem;">根据大多数用户反馈，以下三个方向最为典型</p>
+            <div class="scene-grid">
+                <div class="scene-item">
+                    <div class="emoji-badge">📊</div>
+                    <h3>信息索引</h3>
+                    <p>快速查找与数字、趋势、类别相关的整合内容。适合进行初步浏览与资料收集。</p>
+                </div>
+                <div class="scene-item">
+                    <div class="emoji-badge">🧭</div>
+                    <h3>资源导航</h3>
+                    <p>通过分类与入口引导，定位相关模块。适合需要结构化路径的用户。</p>
+                </div>
+                <div class="scene-item">
+                    <div class="emoji-badge">📋</div>
+                    <h3>动态关注</h3>
+                    <p>跟进更新与变化，了解近期概况。适合保持对特定领域的基础认知。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 常见说明 / FAQ 摘要 + 简明指南 -->
+        <div class="card-white" id="guide">
+            <h2 style="font-weight: 600; font-size: 1.4rem; color: #3d2618; margin-bottom: 1rem;">简明指南与常见说明</h2>
+            <div class="faq-compact">
+                <div class="faq-block">
+                    <h4>平台定位</h4>
+                    <p><a href="https://vip-zhcw.com">中彩网</a> 是一个提供特定信息聚合与展示的站点，内容涵盖多个类别索引。请自行判断信息适用性。</p>
+                </div>
+                <div class="faq-block">
+                    <h4>访问建议</h4>
+                    <p>使用主流浏览器，保持网络环境稳定。部分功能可能需要启用 JavaScript。不要在非受信设备上保存敏感凭据。</p>
+                </div>
+                <div class="faq-block">
+                    <h4>内容说明</h4>
+                    <p>所有展示内容仅供参考，不构成任何承诺或指导。用户应基于自身理解做出独立判断。</p>
+                </div>
+            </div>
+
+            <div class="guide-tip">
+                <span>📌 提醒：</span> 如果你对内容来源或准确性存疑，建议交叉验证。保持理性，适度浏览。
+            </div>
+
+            <!-- 附加FAQ摘要（浓缩） -->
+            <div style="margin-top: 1.6rem; padding-top: 0.6rem; border-top: 1px dashed #e2cfbd;">
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; color: #4e3524;">
+                    <span><strong>Q:</strong> 如何快速定位到某个分类？</span>
+                    <span><strong>A:</strong> 通常可通过站内导航或索引页跳转。</span>
+                    <span><strong>Q:</strong> 信息更新频率？</span>
+                    <span><strong>A:</strong> 根据内容模块不同有所差异，以实际页面为准。</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部 -->
+        <div class="footer-note">
+            以简明视角理解 · 内容仅供参阅
+        </div>
+    </div>
+</body>
+</html>
