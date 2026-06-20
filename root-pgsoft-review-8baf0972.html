@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PG 官网 · 集成信息页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f2f4f7;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #1e293b;
+            line-height: 1.65;
+            padding: 2rem 1.5rem 4rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        /* hero 区域 — 主视觉用卡片承载 */
+        .hero-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02);
+            border: 1px solid #e9edf2;
+            padding: 3rem 2.5rem 2.8rem;
+            margin-bottom: 2.4rem;
+            transition: box-shadow 0.2s;
+        }
+
+        .hero-card h1 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+            color: #0f172a;
+        }
+
+        .hero-card .subhead {
+            font-size: 1.1rem;
+            color: #475569;
+            border-left: 4px solid #94a3b8;
+            padding-left: 1rem;
+            margin: 1.2rem 0 1.8rem;
+        }
+
+        .hero-card p {
+            max-width: 760px;
+            font-size: 1rem;
+        }
+
+        /* 通用卡片网格 */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.02);
+            padding: 1.8rem 1.6rem 2rem;
+            transition: box-shadow 0.15s, transform 0.1s;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.02);
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+            color: #0f172a;
+            letter-spacing: -0.01em;
+        }
+
+        .card h3 {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card ul li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: #94a3b8;
+            font-weight: 700;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #eef2f6;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #475569;
+            margin-right: 0.4rem;
+            white-space: nowrap;
+        }
+
+        .link-sentence {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 2rem 2.2rem;
+            margin-top: 0.5rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .link-sentence a {
+            color: #1d4ed8;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dashed #94a3b8;
+            transition: border-color 0.1s, color 0.1s;
+        }
+
+        .link-sentence a:hover {
+            color: #0f3b8e;
+            border-bottom: 1px solid #1d4ed8;
+        }
+
+        .faq-mini {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            padding: 1.2rem 1.5rem;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        }
+
+        .faq-item strong {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #0f172a;
+        }
+
+        .faq-item p {
+            font-size: 0.9rem;
+            color: #475569;
+            margin: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #dce2ea;
+            margin: 2rem 0 1.5rem;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 2.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 820px) {
+            .grid-2col, .grid-3col {
+                grid-template-columns: 1fr;
+            }
+            .faq-mini {
+                grid-template-columns: 1fr;
+            }
+            .hero-card {
+                padding: 2rem 1.5rem;
+            }
+            .hero-card h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1.2rem 1rem 3rem;
+            }
+            .card {
+                padding: 1.4rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- 主视觉卡片 -->
+    <div class="hero-card">
+        <h1>PG 官网 · 主题索引</h1>
+        <div class="subhead">基于关键词「PG官网」延伸的信息卡片页 · 结构清晰  · 内容务实</div>
+        <p>
+            PG 官网代表一个面向特定用户群体的线上资源聚合入口。本站从信息分类角度梳理其核心用途、适用人群及常见问题，帮助访问者快速理解该平台所覆盖的内容范围与定位。
+        </p>
+    </div>
+
+    <!-- 用途卡片 2列 -->
+    <div class="grid-2col">
+        <div class="card">
+            <h2>📌 主要用途</h2>
+            <ul>
+                <li>提供产品与服务的统一信息发布与版本说明</li>
+                <li>集成常见操作指引、配置参考与工具下载</li>
+                <li>作为官方公告、更新日志与技术支持入口</li>
+                <li>对接社区讨论与知识库，降低使用门槛</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>⚙️ 功能范围</h2>
+            <ul>
+                <li>文档中心 — 部署、集成、API 说明</li>
+                <li>状态监控与系统公告</li>
+                <li>账号管理与权限体系简介</li>
+                <li>反馈渠道与工单系统引导</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 适合人群 3列卡片 -->
+    <div class="grid-3col">
+        <div class="card">
+            <h3>👤 技术实施者</h3>
+            <p>开发、运维、集成工程师，需要查阅接口文档、SDK 集成步骤或环境配置要求。</p>
+        </div>
+        <div class="card">
+            <h3>👥 产品决策者</h3>
+            <p>产品经理、技术负责人，关注平台功能边界、更新路线及合规信息。</p>
+        </div>
+        <div class="card">
+            <h3>📚 普通用户</h3>
+            <p>注册用户与潜在使用者，希望了解基础操作、常见问题及官方渠道。</p>
+        </div>
+    </div>
+
+    <!-- 自然链接段落 -->
+    <div class="link-sentence">
+        如果你正在寻找统一的参考入口，<a href="https://root-pgsoft.com">PG官网</a>聚合了产品文档、使用指引与版本说明，适合不同角色快速定位所需内容。该站点持续更新，建议结合自身需求直接浏览对应模块。
+    </div>
+
+    <!-- FAQ 摘要 两列 -->
+    <div class="faq-mini">
+        <div class="faq-item">
+            <strong>PG 官网主要提供哪类内容？</strong>
+            <p>以产品信息、文档、工具下载及公告为主，覆盖技术与非技术场景。</p>
+        </div>
+        <div class="faq-item">
+            <strong>是否需要注册才能访问全部内容？</strong>
+            <p>部分文档与公告公开可见，账号相关功能及特定资源可能需要登录。</p>
+        </div>
+        <div class="faq-item">
+            <strong>如何获取最新的版本更新通知？</strong>
+            <p>官网发布区及公告栏目会收录更新日志与变更说明，可定期查看。</p>
+        </div>
+        <div class="faq-item">
+            <strong>遇到使用问题建议先查哪里？</strong>
+            <p>可优先浏览官网内的帮助文档或常见问题分类，再通过联系方式反馈。</p>
+        </div>
+    </div>
+
+    <!-- 补充卡片：提示与说明 -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.2rem;">
+        <div class="card" style="margin-bottom: 0;">
+            <h2>📋 浏览提示</h2>
+            <p>推荐使用桌面端或平板访问官网，获得更完整的排版与导航体验。移动端同样适配核心功能。</p>
+        </div>
+        <div class="card" style="margin-bottom: 0;">
+            <h2>🔗 相关内容</h2>
+            <p>官网内包含 API 参考、术语表以及集成案例，可配合使用场景交叉查阅。</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="footer-note">
+        本信息页仅为内容索引示意，具体以 <a href="https://root-pgsoft.com" style="color:#1d4ed8; text-decoration:none; font-weight:400;">PG官网</a> 实际发布为准。
+    </div>
+
+</div>
+</body>
+</html>
